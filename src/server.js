@@ -1,23 +1,31 @@
 import express from 'express'
+import dotenv from 'dotenv'
+import sequelize from './config/database.js'
+import authRoutes from './routes/authRoutes.js'
+import courseRoutes from './routes/courseRoutes.js'
 
+dotenv.config()
 
-const app = express();
+const app = express()
+app.use(express.json())
 
-const hostname = 'localhost';
-const port = 9010;
+// Routes
+app.use(authRoutes)
+app.use(courseRoutes)
 
-// Route to handle GET /weather
-app.get('/weather', (req, res) => {
-    console.log(req.query);
-    let daichi = {
-        city: req.query['city'],
-        district: req.query['district'],
-        country: req.query['country']
-    };
-    res.end(JSON.stringify(daichi)); // Send JSON response
-});
+// Start Server
+const startServer = async () => {
+  try {
+    await sequelize.authenticate()
+    console.log('Database connected!')
+    await sequelize.sync({ alter: true }) // Safe synchronization
+    console.log('Database synchronized!')
+    app.listen(process.env.PORT, () => {
+      console.log(`Server is running on port ${process.env.PORT}`)
+    })
+  } catch (error) {
+    console.error('Unable to connect to the database:', error)
+  }
+}
 
-// Start the server
-app.listen(port, hostname, () => {
-    console.log(`Server đang chạy tại http://${hostname}:${port}/`);
-});
+startServer()
