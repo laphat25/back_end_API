@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { Sequelize } from 'sequelize' // Sequelize là ORM để kết nối và quản lý cơ sở dữ liệu
 import dotenv from 'dotenv' // Để sử dụng biến môi trường từ file `.env`
 
@@ -5,7 +6,7 @@ dotenv.config() // Load các biến từ file `.env`
 
 // Tạo kết nối đến cơ sở dữ liệu
 const sequelize = new Sequelize(
-  process.env.DB_NAME || 'trello_api_db', // Tên cơ sở dữ liệu (mặc định: trello_api_db)
+  process.env.DB_NAME || 'API_DB', // Tên cơ sở dữ liệu (mặc định: trello_api_db)
   process.env.DB_USER || 'root', // Tên user (mặc định: root)
   process.env.DB_PASSWORD || '', // Mật khẩu (mặc định là rỗng)
   {

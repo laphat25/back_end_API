@@ -3,11 +3,15 @@ import dotenv from 'dotenv'
 import sequelize from './config/database.js'
 import authRoutes from './routes/authRoutes.js'
 import courseRoutes from './routes/courseRoutes.js'
-
+import cookieParser from 'cookie-parser'
 dotenv.config()
 
 const app = express()
 app.use(express.json())
+//// Middleware
+app.use(cookieParser()); // Để xử lý cookies
+app.use(express.json()); // Xử lý JSON body
+app.use(express.urlencoded({ extended: true })); // Xử lý URL-encoded body
 
 // Routes
 app.use(authRoutes)
