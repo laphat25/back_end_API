@@ -12,7 +12,7 @@ export const generateAccessToken = (user) => {
     return JWT.sign(
       { id: user.id, role: user.role },
       process.env.ACCESS_TOKEN_SECRET,
-      { algorithm: 'HS256', expiresIn: ms('10') / 1000 + 's' } // Sử dụng ms
+      { algorithm: 'HS256', expiresIn: ms('15m') / 1000 + 's' } // Sử dụng ms
     )
   } catch (err) {
     console.error('Error generating access token:', err.message)
@@ -27,7 +27,7 @@ export const generateRefreshToken = (user) => {
     return JWT.sign(
       { id: user.id },
       process.env.REFRESH_TOKEN_SECRET,
-      { algorithm: 'HS256', expiresIn: ms('30') / 1000 + 's' } // Sử dụng ms
+      { algorithm: 'HS256', expiresIn: ms('7d') / 1000 + 's' } // Sử dụng ms
     )
   } catch (err) {
     console.error('Error generating refresh token:', err.message)
